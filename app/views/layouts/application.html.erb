@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>The Wisdom</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="<%= root_path %>">The Wisdom</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav navbar-left">
+        <li class="active"><a href="<%= megazines_path %>">Megazines</a></li>
+        <% if user_signed_in? %>
+         <li class="active"><a href="<%= new_megazine_path %>">Add Megazine</a></li>
+        <% end %> 
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+      	<% if user_signed_in? %>
+          <li><%= link_to "#" do  %>
+                  <span class="halflings halflings-user"></span>
+              <% end %>
+          </li>
+          <li><%= link_to "Logout" ,destroy_user_session_path,method: :delete  %></li>
+          <li><%= link_to "Edit Profile" , edit_user_registration_path %></li>
+        <% else %>
+          <li><%= link_to new_user_registration_path do%>
+          		<span class="glyphicon glyphicon-user"></span> Sign Up
+          <% end %>
+          </li>
+
+          <li><%= link_to new_user_session_path  do%>
+          		<span class="glyphicon glyphicon-log-in"></span> Login
+          <% end %>		
+          </li>
+        <% end %>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container" >
+  <% flash.each do | name , msg| %>
+      <%= content_tag(:div, msg, class:"alert alert-info") %>
+  <% end %>
+  <div class="col-sm-12 main">
+    <%= yield %>
+  </div>
+</div>
+
+
+</body>
+</html>

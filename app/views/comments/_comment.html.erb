@@ -1,0 +1,28 @@
+<%= div_for comment do %>
+	<div class='actions user_actions'> </div>
+	<div class='main'> 
+		<div class='headline'>
+			<span class='name'>
+				<%= link_to	"Sourav kumar", "javascript:void(0);"  %>
+			</span>
+				<%= link_to	comment.created_at.strftime('%a %d %b %Y') , comment.article  %>
+		</div>
+		<div class='comment_content'>
+			<p><%= comment.body %></p>
+			<div class='actions'>
+				<% if current_user.present? %>
+					<%= link_to "Reply" , new_comment_path(article_id: comment.article_id,parent: comment.id) ,remote: true %>
+					<% if current_user == comment.user && comment.replies.count == 0 %>
+						<%= link_to "Delete" ,comment ,method: 'delete',remote: true,id: "remove_#{comment.id}" %>
+					<% end %>
+				<% end %>		
+			</div>
+		</div>
+	</div>
+	<div class='clear'></div>
+<% end %>
+<div class='nested_comments'>
+	<% comment.replies.each do |reply| %>
+		<%= render :partial => 'comments/comment', :locals => {comment: reply } %>
+	<% end %>
+</div>

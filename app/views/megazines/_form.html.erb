@@ -1,0 +1,27 @@
+<%= form_for(@megazine) do |f| %>
+  <% if @megazine.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@megazine.errors.count, "error") %> prohibited this megazine from being saved:</h2>
+
+      <ul>
+      <% @megazine.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+    <%= f.hidden_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :published %><br>
+    <%= f.date_select :published %>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

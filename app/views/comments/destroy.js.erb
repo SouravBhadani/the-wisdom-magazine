@@ -1,0 +1,1 @@
+$("#comment_<%= @comment.id %>").replaceWith('<%= "<p>#{flash.delete(:notice)}</p>".html_safe %>');

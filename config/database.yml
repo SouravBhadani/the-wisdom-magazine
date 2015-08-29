@@ -1,0 +1,35 @@
+# SQLite version 3.x
+#   gem install sqlite3
+#
+#   Ensure the SQLite 3 gem is defined in your Gemfile
+#   gem 'sqlite3'
+#
+default: &default
+  adapter: sqlite3
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+  database: db/development.sqlite3
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  database: db/test.sqlite3
+
+
+
+production:
+  adapter: postgresql
+  pool: 5
+  timeout: 5000
+  database:  	dbgsq9l0gm4cjl
+  host: ec2-54-197-253-142.compute-1.amazonaws.com
+  port: 5432
+  password: wnYQ2Y2Vau1zXgcu8UFCKutNnT
+  psql: 	heroku pg:psql --app heroku-postgres-ca4c646e HEROKU_POSTGRESQL_GRAY
+  url: 	 postgres://cmlauldyunbbtd:wnYQ2Y2Vau1zXgcu8UFCKutNnT@ec2-54-197-253-142.compute-1.amazonaws.com:5432/dbgsq9l0gm4cjl
+
