@@ -20,31 +20,32 @@
       <% @article.comments.where(parent: nil).each do |comment | %>
         <%= render :partial => "comments/comment", :locals => { :comment => comment } %>
       <% end %>        
-      <div id="new_comment" class="comment">
-          <div class="main">
-            <div class="headline">
-              <span class="position">New comment as</span>
-              <span class="name">
-                <%= link_to "Sourav","#" %>
-                on <%= link_to @article.title, @article %>
-              </span>
-            </div>
-            <div class="comment_content">
-              <%= form_for @article.comments.build, :remote => true do |f| %>
-                <div>
-                  <%= f.hidden_field :article_id %>
-                  <%= f.hidden_field :parent %>
-                </div>
-                <div class="field">
-                  <%= f.text_area :body, :rows => '8', :cols => 65,placeholder: "Your comment..." %>
-                </div>
-                <div class="actions">
-                  <%= f.submit("Post Comment") %>
-                </div>
-              <% end %>
-            </div>
-          </div>
-          <div class="clear"></div>
+       <% if user_signed_in? %>
+       <div id="new_comment" class="comment">
+        <div class="panel panel-default">
+    <div class="panel-heading">
+      <span class="position">New comment as</span>
+      <span class="name">
+          <%= link_to current_user.email,"#" %>
+          on <%= link_to @article.title, @article %>
+      </span>
+    </div>
+    <div class="panel-body">
+      <%= form_for  @article.comments.build, :remote => true do |f| %>
+        <div>
+          <%= f.hidden_field :article_id %>
+          <%= f.hidden_field :parent %>
+        </div>
+        <div class="field">
+          <%= f.text_area :body, :rows => '8', :cols => 50 %>
+        </div>
+        <div class="actions">
+          <%= f.submit("Post Comment") %>
+        </div>
+      <% end %>
+    </div>
+       </div>
+      <% end %> 
       </div>
     </div>  
   </div>
